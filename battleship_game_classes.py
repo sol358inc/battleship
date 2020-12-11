@@ -12,9 +12,9 @@ class Game:
             for player in data['players']:
                 self.players.append(Player(data['board']['rows'],
                                            data['board']['columns'],
-                                           player['ship_coordinates']['coordinate_1'],
-                                           player['ship_coordinates']['coordinate_2'],
-                                           player['ship_coordinates']['coordinate_3']))
+                                           data['players'][player]['ship_coordinates']['coordinate_1'],
+                                           data['players'][player]['ship_coordinates']['coordinate_2'],
+                                           data['players'][player]['ship_coordinates']['coordinate_3']))
 
     def play(self):
         for player in self.players:
