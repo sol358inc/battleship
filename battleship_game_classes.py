@@ -6,26 +6,7 @@ class Game:
     def __init__(self, flag):
         self.players = []
         if flag:
-            # Option 1, setup game collecting info from command line
-            # board_cols = input("Board setup: Please enter how many columns would you like in the board: ")
-            # board_rows = input("Board setup: Please enter how many rows would you like in the board: ")
-            # player1_shipcoord = input("Player1 ship placement: Please enter position of your ship, three coordinates "
-            #                           "separated by comas, ex. C2, C3, C4:")
-            # player2_shipcoord = input("Player2 ship placement: Please enter position of your ship, three coordinates "
-            #                           "separated by comas, ex. C2, C3, C4: ")
-            #
-            # numberofplayers = 2     # only 2 players in a game
-            # p = 0
-            # while p < numberofplayers:
-            #     if p == 0:
-            #         self.players.append(Player("Player1", board_cols, board_rows, player1_shipcoord[0],
-            #                                 player1_shipcoord[1], player1_shipcoord[2])
-            #     else:
-            #         self.players.append(Player("Player2", board_cols, board_rows, player2_shipcoord[0],
-            #                                    player2_shipcoord[1], player2_shipcoord[2])
-            #         p += 1
-
-            # Option 2, setup game taking info from json file
+            # read setup game info from json file
             with open('data.json') as json_file:
                 data = json.load(json_file)
 
