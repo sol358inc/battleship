@@ -2,15 +2,21 @@ import json
 from battleship_game_classes import *
 
 
-with open('data.json') as json_file:
-    data = json.load(json_file)
+if __name__ == '__main__':
+    testgame = Game(True)
+    testgame.play()
 
-board = Board(data['board']['rows'], data['board']['collumns'])
-player_1 = Player(data['board']['rows'],
-                  data['board']['collumns'],
-                  data['player_1']['ship_coordinates']['coordinate_1'],
-                  data['player_1']['ship_coordinates']['coordinate_2'],
-                  data['player_1']['ship_coordinates']['coordinate_3'])
+
+# with open('data.json') as json_file:
+#     data = json.load(json_file)
+#
+# board = Board(data['board']['rows'], data['board']['collumns'])
+# player_1 = Player(data['board']['rows'],
+#                   data['board']['collumns'],
+#                   data['player_1']['ship_coordinates']['coordinate_1'],
+#                   data['player_1']['ship_coordinates']['coordinate_2'],
+#                   data['player_1']['ship_coordinates']['coordinate_3'])
+
 
 # print(data['board']['rows'])
 
