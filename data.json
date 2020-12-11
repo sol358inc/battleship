@@ -5,6 +5,7 @@
   },
   "players": {
     "player_1": {
+      "name": "Player1",
       "ship_coordinates": {
         "coordinate_1": "D3",
         "coordinate_2": "D5",
@@ -12,6 +13,7 @@
       }
     },
     "player_2": {
+      "name": "Player2",
       "ship_coordinates": {
         "coordinate_1": "F2",
         "coordinate_2": "G2",
