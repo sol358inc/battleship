@@ -6,19 +6,40 @@ class Game:
     def __init__(self, flag):
         self.players = []
         if flag:
+            # Option 1, setup game collecting info from command line
+            # board_cols = input("Board setup: Please enter how many columns would you like in the board: ")
+            # board_rows = input("Board setup: Please enter how many rows would you like in the board: ")
+            # player1_shipcoord = input("Player1 ship placement: Please enter position of your ship, three coordinates "
+            #                           "separated by comas, ex. C2, C3, C4:")
+            # player2_shipcoord = input("Player2 ship placement: Please enter position of your ship, three coordinates "
+            #                           "separated by comas, ex. C2, C3, C4: ")
+            #
+            # numberofplayers = 2     # only 2 players in a game
+            # p = 0
+            # while p < numberofplayers:
+            #     if p == 0:
+            #         self.players.append(Player("Player1", board_cols, board_rows, player1_shipcoord[0],
+            #                                 player1_shipcoord[1], player1_shipcoord[2])
+            #     else:
+            #         self.players.append(Player("Player2", board_cols, board_rows, player2_shipcoord[0],
+            #                                    player2_shipcoord[1], player2_shipcoord[2])
+            #         p += 1
+
+            # Option 2, setup game taking info from json file
             with open('data.json') as json_file:
                 data = json.load(json_file)
 
             for player in data['players']:
-                self.players.append(Player(data['board']['rows'],
+                self.players.append(Player(data['players'][player]['name'],
+                                           data['board']['rows'],
                                            data['board']['columns'],
-                                           player['ship_coordinates']['coordinate_1'],
-                                           player['ship_coordinates']['coordinate_2'],
-                                           player['ship_coordinates']['coordinate_3']))
+                                           data['players'][player]['ship_coordinates']['coordinate_1'],
+                                           data['players'][player]['ship_coordinates']['coordinate_2'],
+                                           data['players'][player]['ship_coordinates']['coordinate_3']))
 
     def play(self):
-        for player in self.players:
-            pass
+
+        pass
 
 
 class Board:
@@ -43,17 +64,18 @@ class Board:
             return coord[0] in string.ascii_uppercase[:self.cols] and \
                 int(coord[1:]) in range(1, self.rows + 1)
 
-    # def print_board(self):
-    #     head_col = ' ' * 4
-    #     for y in string.ascii_uppercase[:self.cols]:
-    #         head_col = '{0}{1}  '.format(head_col, y)
-    #     print(head_col)
-    #
-    #     for x in range(1, self.rows + 1):
-    #         str_row = ''
-    #         for y in string.ascii_uppercase[:self.cols]:
-    #             str_row = '{0}{1}  '.format(str_row, self.boardmatrix[y, x])
-    #         print('{0}|  {1}'.format(x, str_row))
+    def print_board(self):
+        # optional method
+        head_col = ' ' * 4
+        for y in string.ascii_uppercase[:self.cols]:
+            head_col = '{0}{1}  '.format(head_col, y)
+        print(head_col)
+
+        for x in range(1, self.rows + 1):
+            str_row = ''
+            for y in string.ascii_uppercase[:self.cols]:
+                str_row = '{0}{1}  '.format(str_row, self.boardmatrix[y, x])
+            print('{0}|  {1}'.format(x, str_row))
 
 
 class Player:
@@ -61,13 +83,15 @@ class Player:
         self.board = None
         self.ships = []
         if args:
-            self.board = Board(args[0], args[1])
-            if len(args) > 2:
-                self.ships.append(Ship(args[2], args[3], args[4]))
+            self.name = args[0]
+            self.board = Board(args[1], args[2])
+            if len(args) > 3:
+                self.ships.append(Ship(args[3], args[4], args[5]))
                 # print(self.ships[0].coordinates)
 
     def updatemyboard(self, coord_played, play_result):
-        self.board.boardmatrix[coord_played[0], int(coord_played[1])] = play_result
+        if coord_played and play_result:
+            self.board.boardmatrix[coord_played[0], int(coord_played[1])] = play_result
 
     def hitormiss(self, coord):
         for ship in self.ships:
@@ -113,8 +137,10 @@ class Ship:
     def hit(self, coord):
         if coord in self.coordinates.keys():
             self.coordinates[coord] = "Hit"
-            return True
-        return coord in self.coordinates.keys()
+            return "Hit"
+        else:
+            return "Miss"
+        # return coord in self.coordinates.keys()
 
     def sunken(self):
         return list(self.coordinates.values()).count('Hit') == len(self.coordinates)

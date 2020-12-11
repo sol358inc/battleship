@@ -90,32 +90,32 @@ class TestBattleshipGame(unittest.TestCase):
         self.assertIsNone(test_newplayer.board)
 
     def test_newPlayerWithBoard(self):
-        test_newplayer = Player(1, 1)
+        test_newplayer = Player("Player1", 1, 1)
         self.assertIsNotNone(test_newplayer.board)
 
     def test_newPlayerNoShip(self):
-        test_newplayer = Player(1, 1)
+        test_newplayer = Player("Player1", 1, 1)
         self.assertEqual(len(test_newplayer.ships), 0)
 
     def test_newPlayerWithShips(self):
-        test_newplayer = Player(3, 3, "A1", "A2", "A3")
+        test_newplayer = Player("Player1", 3, 3, "A1", "A2", "A3")
         self.assertEqual(len(test_newplayer.ships), 1)
 
     def test_playerturn(self):
-        test_newplayer = Player(5, 8, "A1", "A2", "A3")
+        test_newplayer = Player("Player1", 5, 8, "A1", "A2", "A3")
         test_newplayer.updatemyboard("B2", "Miss")
         self.assertEqual(test_newplayer.board.boardmatrix['B', 2], "Miss")
 
     def test_opponentturnMissed(self):
-        test_newplayer = Player(5, 8, "A1", "A2", "A3")
-        self.assertFalse(test_newplayer.hitormiss("B2"))
+        test_newplayer = Player("Player1", 5, 8, "A1", "A2", "A3")
+        self.assertEqual(test_newplayer.hitormiss("B2"), "Miss")
 
     def test_opponentturnHit(self):
-        test_newplayer = Player(5, 8, "A1", "A2", "A3")
-        self.assertTrue(test_newplayer.hitormiss("A3"))
+        test_newplayer = Player("Player1", 5, 8, "A1", "A2", "A3")
+        self.assertEqual(test_newplayer.hitormiss("A3"), "Hit")
 
     def test_opponentturnSunken(self):
-        test_newplayer = Player(5, 8, "A1", "A2", "A3")
+        test_newplayer = Player("Player1", 5, 8, "A1", "A2", "A3")
         test_newplayer.hitormiss("A3")
         test_newplayer.hitormiss("A1")
         test_newplayer.hitormiss("A2")

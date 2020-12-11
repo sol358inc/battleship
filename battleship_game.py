@@ -3,25 +3,29 @@ from battleship_game_classes import *
 
 
 if __name__ == '__main__':
-    testgame = Game(True)
-    testgame.play()
+    newgame = Game(True)
+    endofgame = False
+    i = 0
+    while not endofgame:
+        playerinturn = newgame.players[i]
+        oponent = newgame.players[i+1]
 
-# with open('data.json') as json_file:
-#     data = json.load(json_file)
-#
-# board = Board(data['board']['rows'], data['board']['collumns'])
-# player_1 = Player(data['board']['rows'],
-#                   data['board']['collumns'],
-#                   data['player_1']['ship_coordinates']['coordinate_1'],
-#                   data['player_1']['ship_coordinates']['coordinate_2'],
-#                   data['player_1']['ship_coordinates']['coordinate_3'])
+        playershot = input(playerinturn.name + ", it is your turn to play, please enter your move, ex:C5. "
+                                               "Remember the board has " + str(playerinturn.board.cols) +
+                           " columns and " + str(playerinturn.board.rows) + " rows: ")
+        playerinturn.updatemyboard(playershot.capitalize(), oponent.hitormiss(playershot.capitalize()))
 
+        for sh in oponent.ships:
+            if sh.sunken():
+                print("You have sunken my ship")
+                print("Game over :-(")
+                endofgame = True
+                exit()
 
-# print(data['board']['rows'])
+        if i == 0:
+            i -= 1
+        else:
+            i += 1
 
-# rows = 8
-# columns = 8
-# board = Board(rows, columns)
-# board.print_board()
-# board.valid_ship_placement('d5', 'e4', 'c3')
-# # print(board.is_consecutive(['d3', 'd4', 'd5']))
+        print(oponent.hitormiss(playershot.capitalize()))
+        playerinturn.board.print_board()
