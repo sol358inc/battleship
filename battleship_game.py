@@ -27,4 +27,4 @@ if __name__ == '__main__':
             i += 1
 
         print(oponent.hitormiss(playershot.capitalize()))
-        playerinturn.board.print_board()
+        # playerinturn.board.print_board()

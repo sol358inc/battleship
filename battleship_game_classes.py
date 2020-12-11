@@ -64,18 +64,18 @@ class Board:
             return coord[0] in string.ascii_uppercase[:self.cols] and \
                 int(coord[1:]) in range(1, self.rows + 1)
 
-    def print_board(self):
-        # optional method
-        head_col = ' ' * 4
-        for y in string.ascii_uppercase[:self.cols]:
-            head_col = '{0}{1}  '.format(head_col, y)
-        print(head_col)
-
-        for x in range(1, self.rows + 1):
-            str_row = ''
-            for y in string.ascii_uppercase[:self.cols]:
-                str_row = '{0}{1}  '.format(str_row, self.boardmatrix[y, x])
-            print('{0}|  {1}'.format(x, str_row))
+    # def print_board(self):
+    #     # optional method
+    #     head_col = ' ' * 4
+    #     for y in string.ascii_uppercase[:self.cols]:
+    #         head_col = '{0}{1}  '.format(head_col, y)
+    #     print(head_col)
+    #
+    #     for x in range(1, self.rows + 1):
+    #         str_row = ''
+    #         for y in string.ascii_uppercase[:self.cols]:
+    #             str_row = '{0}{1}  '.format(str_row, self.boardmatrix[y, x])
+    #         print('{0}|  {1}'.format(x, str_row))
 
 
 class Player:
