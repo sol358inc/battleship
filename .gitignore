@@ -1,4 +1,5 @@
 venv
+coverage_report
 .idea
 misc.xml
 pythonProject.iml
